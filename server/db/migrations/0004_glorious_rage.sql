@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "last_reset_date" varchar(10) DEFAULT '';
