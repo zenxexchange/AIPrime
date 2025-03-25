@@ -100,13 +100,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
       {/* ✅ Google Analytics Script */}
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-" />
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-E1BR5GJKMQ" />
       <Script id="google-analytics">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-', {
+          gtag('config', 'G-E1BR5GJKMQ', {
             page_path: window.location.pathname,
           });
         `}
