@@ -137,37 +137,46 @@ export function ChatUI(props: ChatUIProps) {
   });
 
   const generateTitle = async (id: string, messages: Message[]) => {
-    if (id && messages && messages.length >= 2) {
-      const [firstMessage, secondMessage] = messages.slice(0, 2);
-      if (firstMessage.role === 'user' && secondMessage.role === 'assistant') {
-        const genMessages = [
-          {
-            role: 'user',
-            content: getMessageContentText(firstMessage.content)
-          },
-          {
-            role: 'assistant',
-            content: getMessageContentText(secondMessage.content)
-          },
-          { role: 'user', content: GenerateTitlePrompt }
-        ];
-
-        const genModel = (provider && generateTitleModels[provider]) || model;
-
-        if (!isImageModel(genModel)) {
-          const result = await api.createAI(
-            apiFromModel(genModel),
-            genMessages,
-            { ...chat?.usage, model: genModel }
-          );
-          if (result && !('error' in result) && result.content) {
-            await api.updateChat({ id, title: result.content });
-            updateChat({ id, title: result.content });
-            setNewChatId(id);
-          }
-        }
+    if (!id || !messages || messages.length < 2) return;
+  
+    const [firstMessage, secondMessage] = messages.slice(0, 2);
+    if (firstMessage.role !== 'user' || secondMessage.role !== 'assistant') return;
+  
+    const provider = providerFromModel(chat?.usage?.model);
+    const genModel = 'gpt-3.5-turbo'; // fallback to safe model
+  
+    const genMessages = [
+      {
+        role: 'user',
+        content: getMessageContentText(firstMessage.content)
+      },
+      {
+        role: 'assistant',
+        content: getMessageContentText(secondMessage.content)
+      },
+      { role: 'user', content: GenerateTitlePrompt }
+    ];
+  
+    // 🧪 Log what's happening
+    console.log('🧪 Generating title with model:', genModel);
+    console.log('🧪 Messages:', genMessages);
+  
+    const result = await api.createAI(
+      apiFromModel(genModel), // 👈 now it's always a string like "claude-3-opus-20240229"
+      genMessages,
+      {
+        model: genModel,
+        temperature: 0.7,
+        maxTokens: 50
       }
-    }
+    );
+  
+    const fallback = getMessageContentText(firstMessage.content).slice(0, 50).trim() || 'Untitled';
+    const finalTitle = result && !('error' in result) && result.content ? result.content : fallback;
+  
+    await api.updateChat({ id, title: finalTitle });
+    updateChat({ id, title: finalTitle });
+    setNewChatId(id);
   };
 
   return (
