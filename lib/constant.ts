@@ -2,7 +2,7 @@ import { ChatCategory, Voice, type Model, type Settings } from '@/lib/types';
 
 export const SupportedModels: Model[] = [
   // 🟢 Basic Models (Free users have full access)
-  { text: 'GPT-3.5 Turbo', value: 'gpt-3.5-turbo', provider: 'openai', tier: 'basic' },
+  //{ text: 'GPT-3.5 Turbo', value: 'gpt-3.5-turbo', provider: 'openai', tier: 'basic' },
   { text: 'GPT-3.5 Turbo 16k', value: 'gpt-3.5-turbo-16k', provider: 'openai', tier: 'basic' },
   { text: 'DeepSeek Chat', value: 'deepseek-chat', provider: 'deepseek', tier: 'basic' },
 
