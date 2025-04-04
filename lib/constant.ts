@@ -9,7 +9,7 @@ export const SupportedModels: Model[] = [
   // 🟠 Pro Models (Limited to 2/day for Free Users)
   { text: 'GPT-4o', value: 'gpt-4o', vision: true, provider: 'openai', tier: 'pro' },
   { text: 'GPT-4 Turbo', value: 'gpt-4-turbo', vision: true, provider: 'openai', tier: 'pro' },
-  { text: 'Claude 3 Sonnet', value: 'claude-3-sonnet-20240229', vision: true, provider: 'anthropic', tier: 'pro' },
+  //{ text: 'Claude 3 Sonnet', value: 'claude-3-sonnet-20240229', vision: true, provider: 'anthropic', tier: 'pro' },
   { text: 'Gemini 1.5 Pro', value: 'gemini-1.5-pro', vision: true, provider: 'google', tier: 'pro' },
   { text: 'DALL·E 3', value: 'dall-e-3', provider: 'openai', type: 'images', tier: 'pro' },
   { text: 'GPT-4o mini', value: 'gpt-4o-mini', vision: true, provider: 'openai', tier: 'pro' },
@@ -17,7 +17,7 @@ export const SupportedModels: Model[] = [
   // 🔴 Elite Models (Only for PRO users, limited to 50/month)
   { text: 'Claude 3.5 Sonnet', value: 'claude-3-5-sonnet-20240620', vision: true, provider: 'anthropic', tier: 'elite' },
   { text: 'Claude 3 Opus', value: 'claude-3-opus-20240229', vision: true, provider: 'anthropic', tier: 'elite' },
-  { text: 'Gemini Pro 2', value: 'gemini-pro-2', vision: true, provider: 'google', tier: 'elite' },
+  //{ text: 'Gemini Pro 2', value: 'gemini-pro-2', vision: true, provider: 'google', tier: 'elite' },
   { text: 'Grok 2 Vision', value: 'grok-2-vision-1212', vision: true, provider: 'xai', tier: 'elite' },
   { text: 'OpenAI o1 preview', value: 'o1-preview', vision: false, provider: 'openai', tier: 'elite' },
   { text: 'OpenAI o1 mini', value: 'o1-mini', vision: false, provider: 'openai', tier: 'elite' },
@@ -30,7 +30,7 @@ export const SupportedModels: Model[] = [
   
   { text: 'Gemini 1.5 Flash', value: 'gemini-1.5-flash', vision: true, provider: 'google', tier: 'pro' },
   { text: 'Gemini 1.5 Flash-8B', value: 'gemini-1.5-flash-8b', vision: true, provider: 'google', tier: 'pro' },
-  { text: 'Claude 3 Haiku', value: 'claude-3-haiku-20240307', vision: true, provider: 'anthropic', tier: 'pro' },
+ // { text: 'Claude 3 Haiku', value: 'claude-3-haiku-20240307', vision: true, provider: 'anthropic', tier: 'pro' },
   { text: 'Grok 2', value: 'grok-2-1212', provider: 'xai', tier: 'elite' },
   { text: 'Grok beta', value: 'grok-beta', provider: 'xai', tier: 'elite' },
   { text: 'Grok Vision beta', value: 'grok-vision-beta', vision: true, provider: 'xai', tier: 'pro' },
@@ -67,6 +67,14 @@ export const DefaultSettings: Settings = {
   frequencyPenalty: 0,
   presencePenalty: 0,
   maxTokens: 4096
+};
+
+export const generateTitleModels: Record<string, string> = {
+  openai: 'gpt-3.5-turbo',
+  google: 'gemini-1.5-pro',
+  anthropic: 'gpt-3.5-turbo', // Use GPT for Claude titles
+  xai: 'gpt-3.5-turbo',       // Optional: fallback
+  deepseek: 'gpt-3.5-turbo'   // Optional: fallback
 };
 
 export const ChatCategories: ChatCategory[] = ['Today', 'Yesterday', 'Previous 7 Days', 'Previous Month', 'Older'];
