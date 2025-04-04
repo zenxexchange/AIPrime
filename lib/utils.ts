@@ -36,7 +36,11 @@ export function formatString(
 
 export const apiFromModel = (value: string): string => {
   const model = SupportedModels.concat(TTSModels).find(m => m.value === value);
-  return `/api/${model?.type || 'chat'}/${model?.provider || 'default'}`;
+
+  // Fallback safely to OpenAI chat
+  if (!model) return '/api/chat/openai';
+
+  return `/api/${model?.type || 'chat'}/${model?.provider}`;
 };
 
 export const providerFromModel = (value: string) => {
